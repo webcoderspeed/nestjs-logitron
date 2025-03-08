@@ -1,11 +1,8 @@
-/* eslint-disable @typescript-eslint/no-explicit-unknown */
 import {
     Injectable,
     LoggerService as NestjsLoggerService,
   } from '@nestjs/common';
-  import { ILogger, ILoggerOptions, LoggerType } from '../types';
-  import speedCache from '../db';
-  import { LOGGER_OPTIONS } from '../constants';
+  import { ILogger, ILoggerOptions } from '../types';
 import { getLogger } from '../factory';
   
   @Injectable()
@@ -13,12 +10,9 @@ import { getLogger } from '../factory';
     private logger: ILogger;
 
     constructor(
-        options: ILoggerOptions = {
-            type: LoggerType.PINO,
-        },
+        options: ILoggerOptions
     ) {
         this.logger = getLogger(options);
-        speedCache.set(LOGGER_OPTIONS, options);
     }
 
     log(...optionalParams: any[]) {

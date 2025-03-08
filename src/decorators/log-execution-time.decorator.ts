@@ -1,51 +1,34 @@
-import speedCache from '../db';
-import { LOGGER_OPTIONS } from '../constants';
-import { LoggerType } from '../types';
+import { Logger } from "@nestjs/common";
 
-export function LogExecutionTime(
-  target: any,
-  propertyKey?: string,
-  descriptor?: PropertyDescriptor,
-): any {
-  const getLogger = () => {
-    const options = speedCache.get(LOGGER_OPTIONS);
+export function TrackExecutionTime(): ClassDecorator {
+  return function (target: Function) {
+    const logger = new Logger(target.name);
 
-    return new LoggerService(
-      options
-    );
-  };
-
-  if (propertyKey && descriptor) {
-    // Decorator for method
-    const originalMethod = descriptor.value;
-    descriptor.value = function (...args: any[]) {
-      const logger = getLogger();
-      const start = performance.now();
-      const result = originalMethod.apply(this, args);
-      const end = performance.now();
-      logger.info(`[${propertyKey}: ${Number(end - start)?.toFixed(3)} ms]`);
-      return result;
-    };
-    return descriptor;
-  } else {
-    // Decorator for class
-    const className = target.name;
+    // Iterate over all properties of the prototype (methods)
     for (const key of Object.getOwnPropertyNames(target.prototype)) {
-      const method = target.prototype[key];
-      if (typeof method === 'function' && key !== 'constructor') {
-        const originalMethod = method;
-        target.prototype[key] = function (...args: any[]) {
-          const logger = getLogger();
-          const start = performance.now();
-          const result = originalMethod.apply(this, args);
-          const end = performance.now();
-          logger.info(
-            `[${className}.${key}: ${Number(end - start)?.toFixed(3)} ms]`,
-          );
-          return result;
-        };
+      const descriptor = Object.getOwnPropertyDescriptor(target.prototype, key);
+
+      // Ensure it's a function and not the constructor
+      if (!descriptor || typeof descriptor.value !== 'function' || key === 'constructor') {
+        continue;
       }
+
+      const originalMethod = descriptor.value;
+
+      descriptor.value = async function (...args: any[]) {
+        const start = Date.now();
+        try {
+          const result = await originalMethod.apply(this, args);
+          return result;
+        } finally {
+          const executionTime = Date.now() - start;
+          logger.log(
+            `[${target.name}.${key}: ${Number(executionTime)?.toFixed(3)} ms]`,
+          );
+        }
+      };
+
+      Object.defineProperty(target.prototype, key, descriptor);
     }
-    return target;
-  }
+  };
 }

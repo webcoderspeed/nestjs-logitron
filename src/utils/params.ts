@@ -1,7 +1,7 @@
 import { ModuleMetadata } from '@nestjs/common';
 import { ILogger, ILoggerOptions } from '../types';
 import { InjectionToken, MiddlewareConfigProxy, OptionalFactoryDependency } from '@nestjs/common/interfaces';
-import { APP_NAME } from 'src/constants';
+import { APP_NAME } from '../constants';
 
 export type IParams = ILoggerOptions & {
   forRoutes?: Parameters<MiddlewareConfigProxy['forRoutes']>;

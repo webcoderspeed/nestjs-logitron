@@ -1,30 +1,17 @@
+import { Logger } from '@nestjs/common';
 import { NextFunction, Request, Response } from 'express';
-import speedCache from '../db';
-import { LOGGER_OPTIONS } from '../constants';
-import { LoggerType } from '../types';
-import { LoggerService } from '../services';
+import { APP_NAME } from '../constants';
 
 export class RequestMiddleware {
   use(req: Request, res: Response, next: NextFunction) {
-    const getLogger = () => {
-      const options = speedCache.get(LOGGER_OPTIONS);
-
-      return new LoggerService(
-        options ?? {
-          type: LoggerType.PINO,
-        },
-      );
-    };
-
+    const logger =  new Logger(APP_NAME)
     const startTime = performance.now();
 
     res.on('finish', () => {
       const endTime = performance.now();
       const responseTimeInMs = (endTime - startTime)?.toFixed(3);
 
-      const logger = getLogger();
-
-      logger.info({
+      logger.log({
         method: req?.method,
         url: req?.url,
         headers: req?.headers,
