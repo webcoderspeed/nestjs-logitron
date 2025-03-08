@@ -1,0 +1,31 @@
+{
+  "name": "nestjs-logitron",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon --exec ts-node example/index.ts",
+    "load:test": "tsx test/load-test.ts",
+    "lint": "npx prettier --write src/**/*.ts",
+    "build": "tsup ./src"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@nestjs/common": "^11.0.11",
+    "date-fns": "^4.1.0",
+    "express": "^4.21.2",
+    "pino": "^9.6.0",
+    "uuid": "^11.1.0",
+    "winston": "^3.17.0"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.13.10",
+    "prettier": "^3.5.3",
+    "ts-node": "^10.9.2",
+    "tsup": "^8.4.0",
+    "typescript": "^5.8.2"
+  }
+}
