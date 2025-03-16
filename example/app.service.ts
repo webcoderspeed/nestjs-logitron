@@ -1,11 +1,10 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { TraceIdHandler, TrackExecutionTime, } from '../src';
+import { TraceIdHandler,  } from '../src';
 
 @Injectable()
-@TrackExecutionTime()
 export class AppService {
   constructor() { }
-  private readonly logger = new Logger(AppService.name);
+  private readonly logger = new Logger();
 
   async getWorld() {
     await new Promise((res) => setTimeout(res, 300));

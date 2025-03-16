@@ -1,7 +1,7 @@
 import { Injectable, NestMiddleware } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
 import { v4 as uuidv4 } from 'uuid';
-import { asyncLocalStorage, TraceIdHandler } from '../utils';
+import { TraceIdHandler, withTraceId } from '../utils';
 
 @Injectable()
 export class TraceMiddleware implements NestMiddleware {
@@ -12,6 +12,6 @@ export class TraceMiddleware implements NestMiddleware {
       (req?.query?.[TraceIdHandler.getTraceIdField()] as string) ??
       uuidv4();
 
-    asyncLocalStorage.run({ traceId }, () => next());
+    	withTraceId(traceId, () => next());
   }
 }

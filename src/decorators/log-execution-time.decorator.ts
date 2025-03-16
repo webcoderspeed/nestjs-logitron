@@ -1,14 +1,12 @@
 import { Logger } from "@nestjs/common";
 
-export function TrackExecutionTime(): ClassDecorator {
+export function LogExecutionTime(): ClassDecorator {
   return function (target: Function) {
     const logger = new Logger(target.name);
 
-    // Iterate over all properties of the prototype (methods)
     for (const key of Object.getOwnPropertyNames(target.prototype)) {
       const descriptor = Object.getOwnPropertyDescriptor(target.prototype, key);
 
-      // Ensure it's a function and not the constructor
       if (!descriptor || typeof descriptor.value !== 'function' || key === 'constructor') {
         continue;
       }
@@ -23,7 +21,7 @@ export function TrackExecutionTime(): ClassDecorator {
         } finally {
           const executionTime = Date.now() - start;
           logger.log(
-            `[${target.name}.${key}: ${Number(executionTime)?.toFixed(3)} ms]`,
+            `${target.name}.${key}: ${Number(executionTime)?.toFixed(3)} ms`,
           );
         }
       };

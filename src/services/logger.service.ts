@@ -15,23 +15,36 @@ import { getLogger } from '../factory';
         this.logger = getLogger(options);
     }
 
-    log(...optionalParams: any[]) {
-        this.logger.info(...optionalParams);
-    }
+	log(message: string, ...optionalParams: any[]): void {
+		this.logger.info(message, ...optionalParams);
+	}
 
-    info(...optionalParams: any[]): void {
-        this.logger.info(...optionalParams);
-    }
+	info(message: string, ...optionalParams: any[]): void {
+		this.logger.info(message, ...optionalParams);
+	}
 
-    warn(...optionalParams: any[]): void {
-        this.logger.warn(...optionalParams);
-    }
+	warn(message: string, ...optionalParams: any[]): void {
+		this.logger.warn(message, ...optionalParams);
+	}
 
-    error(...optionalParams: any[]): void {
-        this.logger.error(...optionalParams);
-    }
+	error(message: string, ...optionalParams: any[]): void {
+		this.logger.error(message, ...optionalParams);
+	}
 
-    debug(...optionalParams: any[]): void {
-        this.logger.debug(...optionalParams);
-    }
+	debug(message: string, ...optionalParams: any[]): void {
+		this.logger.debug(message, ...optionalParams);
+	}
+
+	infoWithExecutionTime(message: string, execution: { name: string; start: number }, ...optionalParams: any[]): void {
+		this.logger.infoWithExecutionTime(message, execution, ...optionalParams);
+	}
+	warnWithExecutionTime(message: string, execution: { name: string; start: number }, ...optionalParams: any[]): void {
+		this.logger.warnWithExecutionTime(message, execution, ...optionalParams);
+	}
+	errorWithExecutionTime(message: string, execution: { name: string; start: number }, ...optionalParams: any[]): void {
+		this.logger.errorWithExecutionTime(message, execution, ...optionalParams);
+	}
+	debugWithExecutionTime(message: string, execution: { name: string; start: number }, ...optionalParams: any[]): void {
+		this.logger.debugWithExecutionTime(message, execution, ...optionalParams);
+	}
   }
