@@ -17,11 +17,10 @@ function formatLogMessage(
 
 	const executionName = execution?.name ?? 'N/A';
 	const executionTime = typeof execution?.time === 'number' ? `${execution.time} ms` : 'N/A';
-	
+
 	return `[${timestamp}] [${logLevel.toUpperCase()}] [${appName.toUpperCase()}] [${traceId}] [${message}] [${
-	  payload ? JSON.stringify(payload) : 'N/A'
+		payload ? JSON.stringify(payload) : 'N/A'
 	}] [${executionName}] [${executionTime}]`;
-	
 }
 
 export default formatLogMessage;

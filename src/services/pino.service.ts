@@ -15,8 +15,8 @@ export class PinoService implements ILogger {
 			transport: {
 				target: 'pino-pretty',
 				options: {
-					ignore: 'level'
-				}
+					ignore: 'level',
+				},
 			},
 			base: null,
 			timestamp: false,

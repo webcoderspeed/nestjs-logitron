@@ -1,19 +1,16 @@
-import {
-    Injectable,
-    LoggerService as NestjsLoggerService,
-  } from '@nestjs/common';
-  import { ILogger, ILoggerOptions } from '../types';
-import { getLogger } from '../factory';
-  
-  @Injectable()
-  export class LoggerService implements NestjsLoggerService, ILogger {
-    private logger: ILogger;
+/** @format */
 
-    constructor(
-        options: ILoggerOptions
-    ) {
-        this.logger = getLogger(options);
-    }
+import { Injectable, LoggerService as NestjsLoggerService } from '@nestjs/common';
+import { ILogger, ILoggerOptions } from '../types';
+import { getLogger } from '../factory';
+
+@Injectable()
+export class LoggerService implements NestjsLoggerService, ILogger {
+	private logger: ILogger;
+
+	constructor(options: ILoggerOptions) {
+		this.logger = getLogger(options);
+	}
 
 	log(message: string, ...optionalParams: any[]): void {
 		this.logger.info(message, ...optionalParams);
@@ -47,4 +44,4 @@ import { getLogger } from '../factory';
 	debugWithExecutionTime(message: string, execution: { name: string; start: number }, ...optionalParams: any[]): void {
 		this.logger.debugWithExecutionTime(message, execution, ...optionalParams);
 	}
-  }
+}
