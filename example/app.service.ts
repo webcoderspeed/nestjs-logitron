@@ -4,7 +4,7 @@ import { TraceIdHandler,  } from '../src';
 @Injectable()
 export class AppService {
   constructor() { }
-  private readonly logger = new Logger();
+  private readonly logger = new Logger(AppService.name);
 
   async getWorld() {
     await new Promise((res) => setTimeout(res, 300));
@@ -16,7 +16,6 @@ export class AppService {
       hello: 'world',
       traceId: TraceIdHandler.getTraceId(),
       world: hello
-
     }
   }
 

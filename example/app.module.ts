@@ -22,7 +22,7 @@ import { AppService } from './app.service';
 								colorize: false,
 								levelFirst: false,
 								translateTime: 'dd-mm-yyyy hh:mm:ss TT',
-                ignore: 'level', 
+								ignore: 'level',
 							},
 						},
 						{
@@ -32,7 +32,7 @@ import { AppService } from './app.service';
 								colorize: true,
 								levelFirst: false,
 								translateTime: 'dd-mm-yyyy hh:mm:ss TT',
-                ignore: 'level', 
+								ignore: 'level',
 							},
 						},
 					],
