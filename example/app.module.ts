@@ -1,8 +1,8 @@
 /** @format */
 
-import { Module } from '@nestjs/common';
+import { Logger, Module } from '@nestjs/common';
 
-import { LoggerType, LoggerModule } from '../src';
+import { LoggerType, LoggerModule, LoggerService } from '../src';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -66,6 +66,8 @@ import { AppService } from './app.service';
 		}),
 	],
 	controllers: [AppController],
-	providers: [AppService],
+	providers: [
+		AppService,
+	],
 })
 export class AppModule {}
