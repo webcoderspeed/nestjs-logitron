@@ -6,4 +6,4 @@ export { LoggerModule } from './modules';
 export * from './types';
 export { createLogger, transports, format };
 export { TraceIdHandler, parseLogFile, withTraceId } from './utils';
-export { KafkaTraceInterceptor } from './interceptors';
+export { KafkaTraceInterceptor, WebSocketTraceInterceptor } from './interceptors';
